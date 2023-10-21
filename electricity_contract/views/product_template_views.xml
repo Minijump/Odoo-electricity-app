@@ -8,11 +8,15 @@
                 <xpath expr="//page[@name='general_information']/.." position="inside">
                     <page string="Electricity" name="electricity">
                         <group>
-                            <field name="electricity_contract_id"/>
-                            <field name="price_elec"/>
-                            <field name="electricity_consumption"/>
-                            <field name="electricity_cost"/>
-                            <field name="cost_with_elec"/>
+                            <group string="Contract infos">
+                                <field name="electricity_contract_id"/>
+                                <field name="price_elec"/>
+                            </group>
+                            <group string="product infos">
+                                <field name="electricity_consumption"/>
+                                <field name="electricity_cost"/>
+                                <field name="cost_with_elec"/>
+                            </group>
                         </group>
                     </page>
                 </xpath>
