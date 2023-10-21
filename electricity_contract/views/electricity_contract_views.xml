@@ -2,13 +2,12 @@
 <odoo>
     <data>
 
-        <!-- Define a view for the electricity.contract model -->
+        <!-- View for the electricity.contract tree -->
         <record id="view_electricity_contract_tree" model="ir.ui.view">
             <field name="name">electricity.contract.tree</field>
             <field name="model">electricity.contract</field>
             <field name="arch" type="xml">
                 <tree string="Electricity Contracts">
-                    <!-- Define the tree view layout here -->
                     <field name="name"/>
                     <field name="price"/>
                     <field name="currency_id" invisible="1"/>
@@ -17,27 +16,29 @@
             </field>
         </record>
 
-        <!-- Define a view for the electricity.contract form -->
+        <!-- View for the electricity.contract form -->
         <record id="view_electricity_contract_form" model="ir.ui.view">
             <field name="name">electricity.contract.form</field>
             <field name="model">electricity.contract</field>
             <field name="arch" type="xml">
                 <form string="Electricity Contract">
-                    <!-- Define the form layout here -->
                     <sheet>
+                         <div class="oe_title mb24">
+                            <h1>
+                                <field name="name" placeholder="Contract Name..."/>
+                            </h1>
+                        </div>
                         <group>
-                            <field name="name"/>
                             <field name="price"/>
                             <field name="currency_id" invisible="1"/>
                             <field name="company_id" invisible="1"/>
-                            <!-- Add more fields as needed -->
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
 
-        <!-- Define an action for opening the tree view -->
+        <!-- Action for opening the tree view -->
         <record id="action_electricity_contract_tree" model="ir.actions.act_window">
             <field name="name">Electricity Contracts</field>
             <field name="res_model">electricity.contract</field>
@@ -46,7 +47,7 @@
             <field name="target">current</field>
         </record>
 
-        <!-- Define an action for opening the form view -->
+        <!-- Action for opening the form view -->
         <record id="action_electricity_contract_form" model="ir.actions.act_window">
             <field name="name">Electricity Contract Form</field>
             <field name="res_model">electricity.contract</field>
@@ -55,7 +56,7 @@
             <field name="target">current</field>
         </record>
 
-        <!-- Define a menu item for the electricity.contract model -->
+        <!-- Menu item for the electricity.contract model -->
         <menuitem id="menu_electricity_contract_root" name="Electricity Contracts"/>
         <menuitem 
             id="menu_electricity_contract" 
