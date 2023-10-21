@@ -9,10 +9,11 @@
     'summary': 'Create Electricity contract',
     'description': "Create Electricity contract",
     'depends': [
-        'base'
+        'sale'
     ],
     'data': [
         'security/ir.model.access.csv',
-        'views/electricity_contract_views.xml',  
+        'views/electricity_contract_views.xml',
+        'views/product_template_views.xml',  
     ],
 }
