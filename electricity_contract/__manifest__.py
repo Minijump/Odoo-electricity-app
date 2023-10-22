@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name': 'Electricity Contract',
+    'name': 'Electricity Management',
     'version': '16.0.1.0.0',
     'license': 'LGPL-3',
     'author': "Minijump",
@@ -9,7 +9,7 @@
     'category': 'Uncategorized',
     'summary': 'Create Electricity contract and add electricity consumption to products',
     'description': "Track the electricity consumption of creating your products",
-    'images': ['./static/description/banner.gif'],
+    'images': ['./static/description/banner.png'],
     'depends': [
         'sale'
     ],
