@@ -9,7 +9,7 @@
     'category': 'Uncategorized',
     'summary': 'Create Electricity contract and add electricity consumption to products',
     'description': "Track the electricity consumption of creating your products",
-    'image': ['./static/description/banner.gif'],
+    'images': ['./static/description/banner.gif'],
     'depends': [
         'sale'
     ],
