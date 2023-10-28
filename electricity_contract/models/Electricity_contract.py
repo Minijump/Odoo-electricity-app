@@ -9,6 +9,8 @@ class ElectricityContract(models.Model):
     currency_id = fields.Many2one('res.currency', related='company_id.currency_id')
     price = fields.Monetary(required=True, string="Price of a kWh")
     product_ids = fields.One2many('product.template', 'electricity_contract_id')
+    uom = fields.Selection([('wh', 'Wh'), ('kwh', 'kWh'), ('mwh', 'MWh')], 
+                           default='kwh')
 
     _sql_constraints = [
         ('unique_name', 'UNIQUE(name)', 'The name must be unique.')

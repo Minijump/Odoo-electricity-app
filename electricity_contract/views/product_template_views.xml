@@ -14,6 +14,7 @@
                             </group>
                             <group string="product infos">
                                 <field name="electricity_consumption"/>
+                                <field name="electricity_uom"/>
                                 <field name="electricity_cost"/>
                                 <field name="cost_with_elec"/>
                             </group>
