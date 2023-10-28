@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+   <record id="res_config_settings_inherit_view" model="ir.ui.view">
+       <field name="name">res.config.settings.inherit.view</field>
+       <field name="model">res.config.settings</field>
+       <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+       <field name="arch" type="xml">
+           <xpath expr="//div[hasclass('settings')]" position="inside">
+               <div class="app_settings_block" data-string="electricity_contract" string="Electricity" data-key="electricity_contract">
+                    <h2>Consumption Calculator</h2>
+                    <div class="row mt16 o_settings_container" name="calculator">
+                        <div>
+                            <p>
+                                Energy consumption refers to the amount of energy used by a device or system over a period of time. 
+                                The Consumption Calculator provided here assists in estimating energy consumption 
+                                by considering the following factors:
+                            </p>
+                            <ol>
+                                <li>
+                                    <strong>Power:</strong> This is the rate at which energy is used, 
+                                    measured in units like Watts (W) or kilowatts (kW).
+                                    You can find the power rating of a device in its specifications or user manual.
+                                </li>
+                                <li>
+                                    <strong>Time:</strong> This represents the duration for which the device operates, 
+                                    measured in units such as seconds, minutes, or hours.
+                                </li>
+                                <li>
+                                    <strong>Energy:</strong> This is the total amount of energy consumed, 
+                                    typically expressed in units like Watt-hours (Wh) or kilowatt-hours (kWh).
+                                </li>
+                            </ol>
+                            <p>
+                                To obtain a value for energy consumption, please specify the power of the device you are using, 
+                                the duration of usage, and the desired unit for expressing the energy.
+                            </p>
+                            <p>
+                                Please be aware that the energy values provided by this calculator are for informational purposes only
+                                and may not be 100% precise. They serve as a useful guide to help you estimate energy consumption.
+                                For more accurate measurements, refer to the manufacturer's documentation or consult with a qualified expert.
+                            </p>
+                        </div>
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <div class="col-lg-6">
+                                    <label string="Power" for="power"/>
+                                    <div class="text-muted">
+                                        Available units are Watts (W), kilowatts (kW), and megawatts (MW). 
+                                    </div>
+                                    <div name="power_uom">
+                                        <field name="power" class="oe_inline"/>
+                                        <span groups="uom.group_uom">
+                                            <field name="power_uom" class="oe_inline" style="margin-left: 5px;"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label string="Energy" for="energy"/>
+                                    <div class="text-muted">
+                                        Available units are Watts hour (Wh), kilowatts hour (kWh), and megawatts hour (MWh).
+                                    </div>
+                                    <div name="energy_uom">
+                                        <field name="energy" class="oe_inline"/>
+                                        <span groups="uom.group_uom">
+                                            <field name="energy_uom" class="oe_inline" style="margin-left: 5px;"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label string="Time" for="time"/>
+                                    <div class="text-muted">
+                                        Available units are seconds, minutes, and hours 
+                                    </div>
+                                    <div name="time_uom">
+                                        <field name="time" class="oe_inline"/>
+                                        <span groups="uom.group_uom">
+                                            <field name="time_uom" class="oe_inline" style="margin-left: 5px;"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           </xpath>
+       </field>
+   </record>
+</odoo>
