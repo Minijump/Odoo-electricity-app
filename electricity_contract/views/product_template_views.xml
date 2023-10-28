@@ -10,11 +10,23 @@
                         <group>
                             <group string="Contract infos">
                                 <field name="electricity_contract_id"/>
-                                <field name="price_elec"/>
+                                <label for="price_elec_contract"/>
+                                <div name="price_uom_contract">
+                                    <field name="price_elec_contract" class="oe_inline" widget='monetary'/>
+                                    <span groups="uom.group_uom">
+                                        <span style="margin-right: 5px; margin-left: 5px;">per</span>
+                                        <field name="contract_uom" class="oe_inline"/>
+                                    </span>
+                                </div> 
                             </group>
                             <group string="product infos">
-                                <field name="electricity_consumption"/>
-                                <field name="electricity_uom"/>
+                                <label for="electricity_consumption"/>
+                                <div name="consumption_uom">
+                                    <field name="electricity_consumption" class="oe_inline"/>
+                                    <span groups="uom.group_uom">
+                                        <field name="electricity_uom" class="oe_inline" style="margin-left: 5px;"/>
+                                    </span>
+                                </div>
                                 <field name="electricity_cost"/>
                                 <field name="cost_with_elec"/>
                             </group>
