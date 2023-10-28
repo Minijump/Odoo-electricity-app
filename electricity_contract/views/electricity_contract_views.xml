@@ -10,6 +10,7 @@
                 <tree string="Electricity Contracts">
                     <field name="name"/>
                     <field name="price"/>
+                    <field name="uom"/>
                     <field name="currency_id" invisible="1"/>
                     <field name="company_id" invisible="1"/>
                 </tree>
@@ -29,20 +30,24 @@
                             </h1>
                         </div>
                         <group>
-                            <field name="price"/>
+                            <field name="price" widget="monetary"/>
                             <field name="currency_id" invisible="1"/>
                             <field name="company_id" invisible="1"/>
+                            <field name="uom"/>
                         </group>
                         <notebook>
                             <page string="Products" name="products">
                                 <field name="product_ids">
                                     <tree string="Products" create="false" delete="false">
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
                                         <field name="name"/>
                                         <field name="electricity_consumption"/>
-                                        <field name="standard_price" string="Cost of product without electricity" optional="1"/>
-                                        <field name="electricity_cost"/>
-                                        <field name="cost_with_elec" optional="1"/>
-                                        <field name="list_price" optional="1"/>
+                                        <field name="electricity_uom"/>
+                                        <field name="standard_price" string="Cost of product without electricity" optional="1" widget="monetary"/>
+                                        <field name="electricity_cost" widget="monetary"/>
+                                        <field name="cost_with_elec" optional="1" widget="monetary"/>
+                                        <field name="list_price" optional="1" widget="monetary"/>
                                     </tree>
                                 </field>
                             </page>

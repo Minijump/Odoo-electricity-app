@@ -2,7 +2,7 @@
 
 {
     'name': 'Electricity Management',
-    'version': '16.0.1.0.0',
+    'version': '16.0.1.0.1',
     'license': 'LGPL-3',
     'author': "Minijump",
     'application': True,
@@ -16,7 +16,8 @@
     'data': [
         'security/ir.model.access.csv',
         'views/electricity_contract_views.xml',
-        'views/product_template_views.xml',  
+        'views/product_template_views.xml', 
+        'views/config_setting_electricity_contract_views.xml' 
     ],
     'price': '37',
     'support': 'ecuyer.duchevalier@gmail.com'
