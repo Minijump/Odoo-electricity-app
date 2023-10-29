@@ -12,6 +12,7 @@ This potential for self-sustained energy production can be a game-changer for bu
 This app aims to assists companies in gaining a transparent overview of their electricity consumption, enabling them to make well-informed and effective decisions.
 
 ## Usage
+[link to the app](https://apps.odoo.com/apps/modules/16.0/electricity_contract/)
 
 The app will enable you to create multiple 'electricity contracts', with a price per kWh in your company currency.
 
