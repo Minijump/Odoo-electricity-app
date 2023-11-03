@@ -11,14 +11,8 @@ class ProductTemplate(models.Model):
                                           readonly=True)
     contract_uom = fields.Selection(related='electricity_contract_id.uom')
 
-    #data from bom
-    electricity_consumption_from_bom = fields.Float(compute='_compute_electricity_from_bom')
-    electricity_cost_from_bom = fields.Monetary(compute='_compute_electricity_from_bom')
-    include_in_product_consumption = fields.Boolean()
-
     #data for product
-    additional_consumption = fields.Float()
-    electricity_consumption = fields.Float(compute='_compute_elec_consumption')
+    electricity_consumption = fields.Float()
     electricity_uom = fields.Selection([('wh', 'Wh'), ('kwh', 'kWh'), ('mwh', 'MWh')], 
                                        compute='_compute_default_uom',
                                        store=True,
@@ -44,7 +38,6 @@ class ProductTemplate(models.Model):
                 return 1  
         return conversion_factors[(source, dest)]
     
-    
     @api.depends('electricity_consumption', 'electricity_uom')  #not working with 'price_elec_contract'???
     def _compute_elec_cost(self):
         for prod in self:
@@ -62,26 +55,3 @@ class ProductTemplate(models.Model):
         for prod in self:
             prod.electricity_uom = prod.contract_uom or 'kwh'
            
-    @api.depends('bom_ids', 'electricity_uom')
-    def _compute_electricity_from_bom(self):
-        for prod in self:
-            electricity_consumption_from_bom, electricity_cost_from_bom = 0, 0
-            for line in prod.bom_ids[:1].bom_line_ids:
-                electricity_consumption_from_bom += (line.product_id.electricity_consumption * 
-                                                     prod._convert_units(line.product_id.electricity_uom, 
-                                                                         prod.electricity_uom) * 
-                                                     line.product_qty)
-                electricity_cost_from_bom += line.product_id.electricity_cost * line.product_qty
-                
-            prod.electricity_consumption_from_bom = electricity_consumption_from_bom
-            prod.electricity_cost_from_bom = electricity_cost_from_bom
-
-    @api.depends('include_in_product_consumption', 
-                 'electricity_consumption_from_bom', 
-                 'additional_consumption')
-    def _compute_elec_consumption(self):
-        for prod in self:
-            if prod.include_in_product_consumption:
-                prod.electricity_consumption = prod.electricity_consumption_from_bom + prod.additional_consumption
-            else:
-                prod.electricity_consumption = prod.additional_consumption

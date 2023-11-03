@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_product_template_form_inherit_electricity_contract_mrp" model="ir.ui.view">
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="electricity_contract.view_product_template_form_inherit_electricity_contract"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page//group[@name='product_infos']" position="replace">
+                    <group string="product infos" name="product_infos">
+                        <!-- additional consumption will always be displayed with its uom in editable -->
+                        <!-- if bom: -its label will be 'additional consumption'
+                                     -computed field 'elec_consumption' will be displayed as 'total consumption' -->
+                        <!-- if no : -its label will be 'consumption'
+                                     -computed field 'elec_consumption' will be hidden -->
+                        <label for="additional_consumption" 
+                                attrs="{'invisible':[('include_in_product_consumption','=', False)]}"/>
+                        <label for="additional_consumption" 
+                                string="Consumption"
+                                attrs="{'invisible':[('include_in_product_consumption','=', True)]}"/>
+                        <div name="additional_consumption_uom">
+                            <field name="additional_consumption" class="oe_inline"/>
+                            <span groups="uom.group_uom">
+                                <field name="electricity_uom" 
+                                        class="oe_inline" 
+                                        style="margin-left: 5px;"/>
+                            </span>
+                        </div>
+                        <label for="electricity_consumption" 
+                                attrs="{'invisible':[('include_in_product_consumption','=', False)]}"
+                                string="Total Consumption"/>
+                        <div name="consumption_uom" attrs="{'invisible':[('include_in_product_consumption','=', False)]}">
+                            <field name="electricity_consumption" class="oe_inline" />
+                            <span groups="uom.group_uom">
+                                <field name="electricity_uom" 
+                                        class="oe_inline" 
+                                        style="margin-left: 5px;"
+                                        readonly="1"/>
+                            </span>
+                        </div>
+                        <field name="electricity_cost" string="Consumption's Cost"/>
+                        <field name="cost_with_elec" string="Cost of product with electricity's cost"/>
+                    </group>
+                </xpath>
+                <xpath expr="//page//group[@name='product_infos']" position="after">
+                    <group string="Infos from BOM" attrs="{'invisible':[('bom_count','=', 0)]}" name="bom_infos">
+                        <field name="bom_count" invisible="1"/>
+                        <label for="electricity_consumption_from_bom" string="Consumption"/>
+                        <div name="consumption_bom_uom">
+                            <field name="electricity_consumption_from_bom" class="oe_inline"/>
+                            <span groups="uom.group_uom">
+                                <field name="electricity_uom" class="oe_inline" style="margin-left: 5px;" readonly="1"/>
+                            </span>
+                        </div>
+                        <field name="electricity_cost_from_bom" string="Consumption's cost"/>
+                        <field name="include_in_product_consumption" 
+                                widget="boolean_toggle" 
+                                string="Incule into the product's consumption"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

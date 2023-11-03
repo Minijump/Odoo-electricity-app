@@ -2,17 +2,16 @@
 
 {
     'name': 'Electricity Management',
-    'version': '16.0.2.0.0',
+    'version': '16.0.2.0.1',
     'license': 'LGPL-3',
     'author': "Minijump",
     'application': True,
-    'category': 'Uncategorized',
+    'category': 'Sales Management',
     'summary': 'Create Electricity contract and add electricity consumption to products',
     'description': "Track the electricity consumption of creating your products",
     'images': ['./static/description/banner.png'],
     'depends': [
         'sale',
-        'mrp'
     ],
     'auto_install': True,
     'data': [
