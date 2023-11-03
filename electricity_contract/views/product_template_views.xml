@@ -19,16 +19,50 @@
                                     </span>
                                 </div> 
                             </group>
+
                             <group string="product infos">
-                                <label for="electricity_consumption"/>
-                                <div name="consumption_uom">
-                                    <field name="electricity_consumption" class="oe_inline"/>
+                                <label for="additional_consumption" 
+                                       attrs="{'invisible':[('include_in_product_consumption','=', False)]}"/>
+                                <label for="additional_consumption" 
+                                       string="Consumption"
+                                       attrs="{'invisible':[('include_in_product_consumption','=', True)]}"/>
+                                <div name="additional_consumption_uom">
+                                    <field name="additional_consumption" class="oe_inline"/>
                                     <span groups="uom.group_uom">
-                                        <field name="electricity_uom" class="oe_inline" style="margin-left: 5px;"/>
+                                        <field name="electricity_uom" 
+                                               class="oe_inline" 
+                                               style="margin-left: 5px;"/>
                                     </span>
                                 </div>
-                                <field name="electricity_cost"/>
-                                <field name="cost_with_elec"/>
+                                <label for="electricity_consumption" 
+                                       attrs="{'invisible':[('include_in_product_consumption','=', False)]}"
+                                       string="Total Consumption"/>
+                                <div name="consumption_uom" attrs="{'invisible':[('include_in_product_consumption','=', False)]}">
+                                    <field name="electricity_consumption" class="oe_inline" />
+                                    <span groups="uom.group_uom">
+                                        <field name="electricity_uom" 
+                                               class="oe_inline" 
+                                               style="margin-left: 5px;"
+                                               readonly="1"/>
+                                    </span>
+                                </div>
+                                <field name="electricity_cost" string="Consumption's Cost"/>
+                                <field name="cost_with_elec" string="Cost of product with electricity's cost"/>
+                            </group>
+
+                            <group string="Infos from BOM" attrs="{'invisible':[('bom_count','=', 0)]}">
+                                <field name="bom_count" invisible="1"/>
+                                <label for="electricity_consumption_from_bom" string="Consumption"/>
+                                <div name="consumption_bom_uom">
+                                    <field name="electricity_consumption_from_bom" class="oe_inline"/>
+                                    <span groups="uom.group_uom">
+                                        <field name="electricity_uom" class="oe_inline" style="margin-left: 5px;" readonly="1"/>
+                                    </span>
+                                </div>
+                                <field name="electricity_cost_from_bom" string="Consumption's cost"/>
+                                <field name="include_in_product_consumption" 
+                                       widget="boolean_toggle" 
+                                       string="Incule into the product's consumption"/>
                             </group>
                         </group>
                     </page>

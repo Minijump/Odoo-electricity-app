@@ -2,7 +2,7 @@
 
 {
     'name': 'Electricity Management',
-    'version': '16.0.1.0.1',
+    'version': '16.0.2.0.0',
     'license': 'LGPL-3',
     'author': "Minijump",
     'application': True,
@@ -11,8 +11,10 @@
     'description': "Track the electricity consumption of creating your products",
     'images': ['./static/description/banner.png'],
     'depends': [
-        'sale'
+        'sale',
+        'mrp'
     ],
+    'auto_install': True,
     'data': [
         'security/ir.model.access.csv',
         'views/electricity_contract_views.xml',
