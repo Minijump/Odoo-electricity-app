@@ -20,6 +20,6 @@
         'views/product_template_views.xml', 
         'views/config_setting_electricity_contract_views.xml' 
     ],
-    'price': '37',
+    'price': '87.65',
     'support': 'ecuyer.duchevalier@gmail.com'
 }
