@@ -13,13 +13,3 @@ This app aims to assists companies in gaining a transparent overview of their el
 
 ## Usage
 [link to the app](https://apps.odoo.com/apps/modules/16.0/electricity_contract/)
-
-The app will enable you to create multiple 'electricity contracts', with a price per kWh in your company currency.
-
-On each product, a new tab will be available where you can select a contract and give it a consumption (for creating it, storing it, delivering it, ...). With those two pieces of information, the cost of your consumption will automatically be computed.
-
-On the contract view, you will find a tab that lists every product linked to this contract. This will enable you to have a quick overview of the impact on your costs in the case of a change in the price of your contract.
-
-![Screenshot of product's electricity tab](./electricity_contract/static/description/Product_screen.png)
-![Screenshot of electricity contract's form view](./electricity_contract/static/description/Contract_screen.png)
-
