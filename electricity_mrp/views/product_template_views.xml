@@ -21,8 +21,8 @@
                             <field name="additional_consumption" class="oe_inline"/>
                             <span groups="uom.group_uom">
                                 <field name="electricity_uom" 
-                                        class="oe_inline" 
-                                        style="margin-left: 5px;"/>
+                                       class="oe_inline" 
+                                       style="margin-left: 5px;"/>
                             </span>
                         </div>
                         <label for="electricity_consumption" 
@@ -31,7 +31,7 @@
                         <div name="consumption_uom" attrs="{'invisible':[('include_in_product_consumption','=', False)]}">
                             <field name="electricity_consumption" class="oe_inline" />
                             <span groups="uom.group_uom">
-                                <field name="electricity_uom" 
+                                <field name="readonly_uom" 
                                         class="oe_inline" 
                                         style="margin-left: 5px;"
                                         readonly="1"/>
@@ -48,13 +48,16 @@
                         <div name="consumption_bom_uom">
                             <field name="electricity_consumption_from_bom" class="oe_inline"/>
                             <span groups="uom.group_uom">
-                                <field name="electricity_uom" class="oe_inline" style="margin-left: 5px;" readonly="1"/>
+                                <field name="readonly_uom" 
+                                       class="oe_inline" 
+                                       style="margin-left: 5px;" 
+                                       readonly="1"/>
                             </span>
                         </div>
                         <field name="electricity_cost_from_bom" string="Consumption's cost"/>
                         <field name="include_in_product_consumption" 
                                 widget="boolean_toggle" 
-                                string="Incule into the product's consumption"/>
+                                string="Include into the product's consumption"/>
                     </group>
                 </xpath>
             </field>
