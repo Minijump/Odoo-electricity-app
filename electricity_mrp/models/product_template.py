@@ -12,8 +12,7 @@ class ProductTemplate(models.Model):
     additional_consumption = fields.Float()
     electricity_consumption = fields.Float(compute='_compute_elec_consumption')
     readonly_uom = fields.Selection([('wh', 'Wh'), ('kwh', 'kWh'), ('mwh', 'MWh')], 
-                                     related='electricity_uom',
-                                     string="Uom")
+                                     related='electricity_uom')
 
     @api.depends('bom_ids', 'electricity_uom', 'bom_ids.bom_line_ids')
     def _compute_electricity_from_bom(self):

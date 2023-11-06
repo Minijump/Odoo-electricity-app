@@ -34,7 +34,8 @@
                                 <field name="readonly_uom" 
                                         class="oe_inline" 
                                         style="margin-left: 5px;"
-                                        readonly="1"/>
+                                        readonly="1"
+                                        string="Uom"/>
                             </span>
                         </div>
                         <field name="electricity_cost" string="Consumption's Cost"/>
@@ -51,7 +52,8 @@
                                 <field name="readonly_uom" 
                                        class="oe_inline" 
                                        style="margin-left: 5px;" 
-                                       readonly="1"/>
+                                       readonly="1"
+                                       string="Uom"/>
                             </span>
                         </div>
                         <field name="electricity_cost_from_bom" string="Consumption's cost"/>
