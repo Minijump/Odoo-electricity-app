@@ -38,5 +38,22 @@
                 </xpath>
             </field>
         </record>
+
+        <!-- Action to open product wit a filter -->
+        <record id="action_product_contract_tree_with_filter" model="ir.actions.act_window">
+            <field name="name">Products with Contract</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('electricity_contract_id', '!=', False)]</field>
+        </record>
+
+        <!-- Menu item for the products with contract -->
+        <menuitem 
+            id="menu_product_contract" 
+            name="Products with Contract" 
+            parent="menu_electricity_contract_root" 
+            action="action_product_contract_tree_with_filter"
+        />
+
     </data>
 </odoo>
