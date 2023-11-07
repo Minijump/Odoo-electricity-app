@@ -51,7 +51,7 @@
         <menuitem 
             id="menu_product_contract" 
             name="Products with Contract" 
-            parent="menu_electricity_contract_root" 
+            parent="menu_electricity_contract_submenu" 
             action="action_product_contract_tree_with_filter"
         />
 

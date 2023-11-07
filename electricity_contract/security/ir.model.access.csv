@@ -1,2 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 electricity_contract.access_electricity_contract,access_electricity_contract,electricity_contract.model_electricity_contract,base.group_user,1,1,1,1
+electricity_contract.access_device,access_device,electricity_contract.model_device,base.group_user,1,1,1,1
+electricity_contract.access_device_consumption,access_device_consumption,electricity_contract.model_device_consumption,base.group_user,1,1,1,1
+electricity_contract.access_device_consumption_product,access_device_consumption_product,electricity_contract.model_device_consumption_product,base.group_user,1,1,1,1

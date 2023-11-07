@@ -18,7 +18,8 @@
         'security/ir.model.access.csv',
         'views/electricity_contract_views.xml',
         'views/product_template_views.xml', 
-        'views/config_setting_electricity_contract_views.xml' 
+        'views/config_setting_electricity_contract_views.xml',
+        'views/device_views.xml' 
     ],
     'price': '87.65',
     'support': 'ecuyer.duchevalier@gmail.com'
