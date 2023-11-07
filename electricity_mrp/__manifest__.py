@@ -9,7 +9,7 @@
     'category': 'Manufacturing',
     'summary': 'Extends electricity management module to add mrp features',
     'description': "Compute electricity consumption from BOM, add additional consumption, ...",
-    #'images': ['./static/description/banner.png'],
+    'images': ['./static/description/banner.png'],
     'depends': [
         'electricity_contract',
         'mrp'
