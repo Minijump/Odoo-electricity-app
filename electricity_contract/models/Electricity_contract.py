@@ -12,6 +12,7 @@ class ElectricityContract(models.Model):
     uom = fields.Selection([('wh', 'Wh'), ('kwh', 'kWh'), ('mwh', 'MWh')], 
                            default='kwh',
                            required=True)
+    device_ids = fields.One2many('device', 'electricity_contract_id')
 
     _sql_constraints = [
         ('unique_name', 'UNIQUE(name)', 'The name must be unique.')

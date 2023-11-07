@@ -51,6 +51,19 @@
                                     </tree>
                                 </field>
                             </page>
+                            <page string="Devices" name="devices">
+                                <field name="device_ids">
+                                    <tree string="Devices" create="false" delete="false">
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="number_device"/>
+                                        <field name="total_consumption"/>
+                                        <field name="uom"/>
+                                        <field name="total_cost" widget="monetary"/>
+                                    </tree>
+                                </field>
+                            </page>
                         </notebook>
                     </sheet>
                 </form>
@@ -78,9 +91,15 @@
         <!-- Menu item for the electricity.contract model -->
         <menuitem id="menu_electricity_contract_root" name="Electricity Contracts"/>
         <menuitem 
+            id="menu_electricity_contract_submenu" 
+            name="Electricity Contracts"
+            parent="menu_electricity_contract_root"
+            sequence="1"
+        />
+        <menuitem 
             id="menu_electricity_contract" 
             name="Contracts" 
-            parent="menu_electricity_contract_root" 
+            parent="menu_electricity_contract_submenu" 
             action="action_electricity_contract_tree"
         />
 

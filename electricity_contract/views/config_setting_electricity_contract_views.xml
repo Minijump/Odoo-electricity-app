@@ -87,4 +87,24 @@
            </xpath>
        </field>
    </record>
+
+    <record id="action_open_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field> 
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context" eval="{'module': 'electricity_contract'}"/>
+    </record>
+
+    <menuitem 
+            id="menu_electricity_contract_config" 
+            name="Configuration"
+            parent="menu_electricity_contract_root"
+    />
+    <menuitem 
+        id="settings" 
+        name="Settings" 
+        parent="menu_electricity_contract_config" 
+        action="action_open_settings"
+    />
 </odoo>

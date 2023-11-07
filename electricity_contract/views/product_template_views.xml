@@ -8,7 +8,7 @@
                 <xpath expr="//page[@name='general_information']/.." position="inside">
                     <page string="Electricity" name="electricity">
                         <group>
-                            <group string="Contract infos">
+                            <group string="Contract infos" name="contract_infos">
                                 <field name="electricity_contract_id"/>
                                 <label for="price_elec_contract"/>
                                 <div name="price_uom_contract">
@@ -19,21 +19,41 @@
                                     </span>
                                 </div> 
                             </group>
-                            <group string="product infos">
-                                <label for="electricity_consumption"/>
+
+                            <group string="product infos" name="product_infos">
+                                <label for="electricity_consumption" string="Consumption"/>
                                 <div name="consumption_uom">
-                                    <field name="electricity_consumption" class="oe_inline"/>
+                                    <field name="electricity_consumption" class="oe_inline" />
                                     <span groups="uom.group_uom">
-                                        <field name="electricity_uom" class="oe_inline" style="margin-left: 5px;"/>
+                                        <field name="electricity_uom" 
+                                               class="oe_inline" 
+                                               style="margin-left: 5px;"/>
                                     </span>
                                 </div>
-                                <field name="electricity_cost"/>
-                                <field name="cost_with_elec"/>
+                                <field name="electricity_cost" string="Consumption's Cost"/>
+                                <field name="cost_with_elec" string="Cost of product with electricity's cost"/>
                             </group>
                         </group>
                     </page>
                 </xpath>
             </field>
         </record>
+
+        <!-- Action to open product wit a filter -->
+        <record id="action_product_contract_tree_with_filter" model="ir.actions.act_window">
+            <field name="name">Products with Contract</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('electricity_contract_id', '!=', False)]</field>
+        </record>
+
+        <!-- Menu item for the products with contract -->
+        <menuitem 
+            id="menu_product_contract" 
+            name="Products with Contract" 
+            parent="menu_electricity_contract_submenu" 
+            action="action_product_contract_tree_with_filter"
+        />
+
     </data>
 </odoo>
