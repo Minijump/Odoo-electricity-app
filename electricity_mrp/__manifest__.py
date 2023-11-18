@@ -3,7 +3,7 @@
 {
     'name': 'Electricity Management: MRP extension',
     'version': '16.0.1.0.0',
-    'license': 'LGPL-3',
+    'license': 'OPL-1',
     'author': "Minijump",
     'application': True,
     'category': 'Manufacturing',
