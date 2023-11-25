@@ -29,4 +29,3 @@ class ConfSetting(models.TransientModel):
       for rec in self:
          energy_wh = (rec.power * uom_factors[rec.power_uom]) * (rec.time * uom_factors[rec.time_uom])
          rec.energy = energy_wh * uom_factors[rec.energy_uom]
-
