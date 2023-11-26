@@ -3,6 +3,9 @@ from odoo import api, models, fields
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
+    #config
+    display_in_general_tab = fields.Boolean(compute="_compute_config_settings")
+
     #data from contracts
     electricity_contract_id = fields.Many2one('electricity.contract', 
                                               string='Contract')
@@ -37,6 +40,10 @@ class ProductTemplate(models.Model):
         if not source or not dest:
                 return 1  
         return conversion_factors[(source, dest)]
+    
+    def _compute_config_settings(self):
+        for prod in self:
+            prod.display_in_general_tab = self.env['ir.config_parameter'].sudo().get_param("electricity_contract.display_in_general_tab")
     
     @api.depends('electricity_consumption', 'electricity_uom')  #not working with 'price_elec_contract'???
     def _compute_elec_cost(self):
