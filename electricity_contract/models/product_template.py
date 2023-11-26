@@ -61,4 +61,3 @@ class ProductTemplate(models.Model):
     def _compute_default_uom(self):
         for prod in self:
             prod.electricity_uom = prod.contract_uom or 'kwh'
-           
