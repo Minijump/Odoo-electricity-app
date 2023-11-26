@@ -5,6 +5,17 @@
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
+                <xpath expr="//div[@name='standard_price_uom']" position="inside">
+                    <field name="display_in_general_tab" invisible="1"/>
+                    <div name="price_uom_contract" attrs="{'invisible':[('display_in_general_tab','=', False)]}">
+                        <span style="margin-right: 5px;">+</span>
+                        <field name="electricity_cost" class="oe_inline" widget='monetary'/>
+                        <span style="margin-right: 5px; margin-left: 5px;">of electricity</span>
+                        <br/>
+                        <span style="margin-right: 5px">Total Price:</span>
+                        <field name="cost_with_elec" class="oe_inline"/>
+                    </div>
+                </xpath>
                 <xpath expr="//page[@name='general_information']/.." position="inside">
                     <page string="Electricity" name="electricity">
                         <group>

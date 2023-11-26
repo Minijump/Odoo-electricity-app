@@ -83,6 +83,22 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <h2>Product Form</h2>
+                    <div class="row mt16 o_settings_container" name="product_form">
+                        <div class="col-12 col-lg-6 o_setting_box" id="variant_options">
+                            <div class="o_setting_left_pane">
+                                <field name="display_in_general_tab"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="display_in_general_tab"/>
+                                <div class="text-muted">
+                                    Display electricity cost and product cost with electricity on General Info tab
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
            </xpath>
        </field>
