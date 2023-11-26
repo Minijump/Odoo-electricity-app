@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name': 'Electricity Management: MRP extension',
-    'version': '16.0.1.0.0',
+    'name': 'FREE MRP extension: Electricity Management',
+    'version': '16.0.2.0.0',
     'license': 'OPL-1',
     'author': "Minijump",
     'application': True,
