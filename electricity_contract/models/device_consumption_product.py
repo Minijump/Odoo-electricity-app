@@ -2,7 +2,7 @@ from odoo import api,fields,models
 
 class Device(models.Model):
      _name = "device.consumption.product"
-     _description = "Represent electric devices"
+     _description = "Represent electric devices consumption linked to a product"
 
      device_id = fields.Many2one('device')
      device_uom = fields.Selection([('wh', 'Wh'), ('kwh', 'kWh'), ('mwh', 'MWh')],
@@ -14,11 +14,17 @@ class Device(models.Model):
      
      @api.depends('device_id.uom')
      def _compute_device_uom(self):
+          """
+          Set the uom, linked to device_uom
+          """
           for cons in self:
                cons.device_uom = cons.device_id.uom if cons.device_id.uom else 'wh'
 
      @api.depends('device_id.uom', 'units', 'product_id')
      def _compute_energy(self):
+          """
+          Set the energy consumption: #products created * consumption for this product
+          """
           for cons in self:
                cons.energy = (cons.units * 
                               cons.product_id.electricity_consumption * 

@@ -26,6 +26,9 @@ class ProductTemplate(models.Model):
     cost_with_elec = fields.Monetary(compute="_compute_cost_with_elec", string="Cost of product with electricity")
 
     def _convert_units(self, source , dest):
+        """
+        Convert energy units
+        """
         conversion_factors = {
             ('wh', 'wh'): 1,
             ('wh', 'kwh'): 0.001,
@@ -42,11 +45,25 @@ class ProductTemplate(models.Model):
         return conversion_factors[(source, dest)]
     
     def _compute_config_settings(self):
+        """
+        Set the field(s) which are set in settings
+        """
         for prod in self:
             prod.display_in_general_tab = self.env['ir.config_parameter'].sudo().get_param("electricity_contract.display_in_general_tab")
+
+    @api.depends('electricity_contract_id')
+    def _compute_default_uom(self):
+        """
+        compute the default uom, based on contract
+        """
+        for prod in self:
+            prod.electricity_uom = prod.contract_uom or 'kwh'
     
     @api.depends('electricity_consumption', 'electricity_uom')  #not working with 'price_elec_contract'???
     def _compute_elec_cost(self):
+        """
+        Compute the cost of the electricity consumption
+        """
         for prod in self:
             prod.electricity_cost = (prod.electricity_consumption * 
                                      prod._convert_units(prod.electricity_uom, prod.contract_uom) * 
@@ -54,10 +71,8 @@ class ProductTemplate(models.Model):
 
     @api.depends('electricity_cost', 'standard_price')
     def _compute_cost_with_elec(self):
+        """
+        Compute the cost of the product with the electricity consumption
+        """
         for prod in self:
             prod.cost_with_elec = prod.electricity_cost + prod.standard_price 
-
-    @api.depends('electricity_contract_id')
-    def _compute_default_uom(self):
-        for prod in self:
-            prod.electricity_uom = prod.contract_uom or 'kwh'

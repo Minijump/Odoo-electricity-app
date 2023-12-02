@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- add electricity infos into the product form view -->
         <record id="view_product_template_form_inherit_electricity_contract" model="ir.ui.view">
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
@@ -50,7 +51,7 @@
             </field>
         </record>
 
-        <!-- Action to open product wit a filter -->
+        <!-- open product kanban view, context: only products with electricity contract -->
         <record id="action_product_contract_tree_with_filter" model="ir.actions.act_window">
             <field name="name">Products with Contract</field>
             <field name="res_model">product.template</field>
