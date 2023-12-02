@@ -136,6 +136,7 @@
             id="menu_electricity_contract_config" 
             name="Configuration"
             parent="menu_electricity_contract_root"
+            sequence="3"
     />
     <menuitem 
         id="settings" 

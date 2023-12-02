@@ -107,6 +107,7 @@
             name="Devices" 
             parent="menu_electricity_contract_root" 
             action="action_electric_device_tree"
+            sequence="2"
         />
     </data>
 </odoo>
