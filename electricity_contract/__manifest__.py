@@ -12,6 +12,7 @@
     'images': ['./static/description/banner.png'],
     'depends': [
         'sale',
+        'sale_margin'
     ],
     'auto_install': True,
     'data': [
