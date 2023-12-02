@@ -18,6 +18,10 @@ class ConfSetting(models.TransientModel):
    #product form
    display_in_general_tab = fields.Boolean(string="Display in General Info tab", 
                                            config_parameter='electricity_contract.display_in_general_tab')
+   
+   #sale order
+   use_in_so_line = fields.Boolean(string="Use in sale order line",
+                                   config_parameter='electricity_contract.use_in_so_line')
 
    @api.depends('power', 'power_uom', 'time', 'time_uom', 'energy_uom')
    def _compute_energy(self):

@@ -99,7 +99,27 @@
                         </div>
                     </div>
 
+                    <h2>Sale Order</h2>
+                    <div class="row mt16 o_settings_container" name="so_line">
+                        <div class="col-12 col-lg-6 o_setting_box" id="variant_options">
+                            <div class="o_setting_left_pane">
+                                <field name="use_in_so_line"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="use_in_so_line"/>
+                                <div class="text-muted">
+                                    Use the cost with electricity as unti price when creating a new sale order line
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+           </xpath>
+
+           <xpath expr="//div[@id='show_margins']" position="attributes">
+                <!-- uncheck this boolean would unistall all modules, hide it-->
+                <attribute name="invisible">1</attribute>
            </xpath>
        </field>
    </record>

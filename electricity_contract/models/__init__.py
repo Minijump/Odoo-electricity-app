@@ -4,3 +4,4 @@ from . import config_settings
 from . import device
 from . import device_consumption
 from . import device_consumption_product
+from . import sale_order_line

@@ -47,4 +47,3 @@ class ProductTemplate(models.Model):
                               prod._convert_units(prod.electricity_uom, prod.contract_uom) * 
                               prod.price_elec_contract)
             prod.electricity_cost = additional_cost + bom_cost
-            
