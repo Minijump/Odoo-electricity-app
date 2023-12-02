@@ -31,7 +31,7 @@ class Device(models.Model):
                            required=True,
                            readonly=False,
                            store=True)
-    readonly_uom = fields.Selection([('wh', 'Wh'), ('kwh', 'kWh'), ('mwh', 'MWh')], related='uom')
+    readonly_uom = fields.Selection(related='uom')
     electricity_contract_id = fields.Many2one('electricity.contract', string='Contract', required=True)
     contract_price = fields.Monetary(related='electricity_contract_id.price')
     contract_uom = fields.Selection(related='electricity_contract_id.uom')
