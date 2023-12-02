@@ -3,6 +3,9 @@ from odoo import api,fields,models
 class Device(models.Model):
     _name = "device.consumption"
     _description = "Represent electric devices consumption"
+    _sql_constraints = [
+        ("check_positive_duration", "CHECK(duration >= 0)", "The duration must be greater or equal to 0"),
+    ]
 
     device_id = fields.Many2one('device')
     device_uom = fields.Selection([('wh', 'Wh'), ('kwh', 'kWh'), ('mwh', 'MWh')],
