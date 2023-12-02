@@ -3,6 +3,9 @@ from odoo import api,fields,models
 class Device(models.Model):
      _name = "device.consumption.product"
      _description = "Represent electric devices consumption linked to a product"
+     _sql_constraints = [
+        ("check_positive_product_number", "CHECK(units >= 0)", "The number of units must be greater or equal to 0"),
+    ]
 
      device_id = fields.Many2one('device')
      device_uom = fields.Selection([('wh', 'Wh'), ('kwh', 'kWh'), ('mwh', 'MWh')],
