@@ -5,6 +5,7 @@
        <field name="model">res.config.settings</field>
        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
        <field name="arch" type="xml">
+           <!-- Form view of the electricity contract settings -->
            <xpath expr="//div[hasclass('settings')]" position="inside">
                <div class="app_settings_block" data-string="electricity_contract" string="Electricity" data-key="electricity_contract">
                     <h2>Consumption Calculator</h2>
@@ -124,6 +125,7 @@
        </field>
    </record>
 
+    <!-- open settings of electricity contract -->
     <record id="action_open_settings" model="ir.actions.act_window">
         <field name="name">Settings</field>
         <field name="res_model">res.config.settings</field> 
@@ -132,6 +134,7 @@
         <field name="context" eval="{'module': 'electricity_contract'}"/>
     </record>
 
+    <!-- menus -->
     <menuitem 
             id="menu_electricity_contract_config" 
             name="Configuration"

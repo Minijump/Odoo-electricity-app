@@ -3,7 +3,7 @@ from odoo import api, models, fields
 class ConfSetting(models.TransientModel):
    _inherit = "res.config.settings"
 
-   #calculator
+   #calculator: compute consumption
    power = fields.Float()
    power_uom = fields.Selection(selection=[('w', 'W'), ('kw', 'kW'), ('mw', 'MW')],
                                 default='w')
@@ -15,16 +15,19 @@ class ConfSetting(models.TransientModel):
                                 default='wh')   
    energy = fields.Float(compute='_compute_energy')
 
-   #product form
+   #product form custo
    display_in_general_tab = fields.Boolean(string="Display in General Info tab", 
                                            config_parameter='electricity_contract.display_in_general_tab')
    
-   #sale order
+   #sale order line custo
    use_in_so_line = fields.Boolean(string="Use in sale order line",
                                    config_parameter='electricity_contract.use_in_so_line')
 
    @api.depends('power', 'power_uom', 'time', 'time_uom', 'energy_uom')
    def _compute_energy(self):
+      """
+      Compute energy consumption based on power, time and uom fields 
+      """
       uom_factors = {'w': 1, 
                      'kw': 1000, 
                      'mw': 1000000, 

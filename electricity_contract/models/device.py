@@ -1,6 +1,19 @@
 from odoo import api,fields,models
 
 class Device(models.Model):
+    """
+    A device can have 2 types of consumption:
+
+    - Consumptions of 'usage', store in 'device_consumption_ids'. These consumptions represent, for the example of a 
+      computer, the consumption when we use it, and the consumption when it is off.
+      You can add to the devices these consumptions: add power and time, it computes the consumption
+    - Consumption linked to a product, stored in 'device_consumption_product_ids'. These consumption represent, for
+      the example of an oven, the consumption you use to bake 4 breads and the one to bake 2 cakes
+      You can add to the device these consumptions: add number of product, it computes the consumption
+
+    A total consumption of the device is computed at the end, this consumption is on a time period choosen by the user 
+    and not indicated on the model.
+    """
     _name = "device"
     _description = "Represent electric devices"
     _sql_constraints = [
@@ -30,6 +43,9 @@ class Device(models.Model):
     total_cost = fields.Float(compute='_compute_cost')
 
     def _convert_units(self, source , dest):
+        """
+        Convert energy units
+        """
         conversion_factors = {
             ('wh', 'wh'): 1,
             ('wh', 'kwh'): 0.001,
@@ -47,6 +63,9 @@ class Device(models.Model):
     
     @api.depends('electricity_contract_id')
     def _compute_default_uom(self):
+        """
+        Compute the default uom, based on the electricity contract
+        """
         for device in self:
             device.uom = device.electricity_contract_id.uom or 'kwh'
     
@@ -55,6 +74,9 @@ class Device(models.Model):
                  'uom',
                  'number_device')
     def _compute_consumption(self):
+        """
+        Compute the consumption of the device, based on the 2 types of consumptions.
+        """
         for device in self:
             device.total_consumption =(device.number_device*
                                        (sum(device.device_consumption_ids.mapped('energy')) +
@@ -63,6 +85,9 @@ class Device(models.Model):
             
     @api.depends('total_consumption', 'electricity_contract_id')
     def _compute_cost(self):
+        """
+        Compute the cost of the consumption
+        """
         for device in self:
              device.total_cost = (device.total_consumption * device.electricity_contract_id.price * 
                                   device._convert_units(device.uom,device.electricity_contract_id.uom))
