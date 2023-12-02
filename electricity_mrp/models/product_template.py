@@ -5,14 +5,13 @@ class ProductTemplate(models.Model):
 
     #data from bom
     electricity_consumption_from_bom = fields.Float(compute='_compute_electricity_from_bom', store=True)
-    electricity_cost_from_bom = fields.Monetary(compute='_compute_electricity_from_bom')
+    electricity_cost_from_bom = fields.Monetary(compute='_compute_electricity_from_bom', compute_sudo=True)
     include_in_product_consumption = fields.Boolean()
 
     #data for product
     additional_consumption = fields.Float()
     electricity_consumption = fields.Float(compute='_compute_elec_consumption')  #overriden
-    readonly_uom = fields.Selection([('wh', 'Wh'), ('kwh', 'kWh'), ('mwh', 'MWh')], 
-                                     related='electricity_uom')
+    readonly_uom = fields.Selection(related='electricity_uom')
 
     @api.depends('bom_ids', 'electricity_uom', 'bom_ids.bom_line_ids')
     def _compute_electricity_from_bom(self):
