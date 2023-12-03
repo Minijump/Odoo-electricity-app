@@ -23,7 +23,8 @@ class Device(models.Model):
           for cons in self:
                cons.device_uom = cons.device_id.uom if cons.device_id.uom else 'wh'
 
-     @api.depends('device_id.uom', 'units', 'product_id')
+     @api.depends('device_id.uom', 'units', 'product_id',
+                  'product_id.electricity_consumption', 'product_id.electricity_uom')
      def _compute_energy(self):
           """
           Set the energy consumption: #products created * consumption for this product
