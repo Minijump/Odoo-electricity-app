@@ -69,10 +69,9 @@ class Device(models.Model):
         for device in self:
             device.uom = device.electricity_contract_id.uom or 'kwh'
     
-    @api.depends('device_consumption_ids', 
-                 'device_consumption_product_ids', 
-                 'uom',
-                 'number_device')
+    @api.depends('device_consumption_ids', 'device_consumption_ids.energy', 
+                 'device_consumption_product_ids', 'device_consumption_product_ids.energy',
+                 'uom', 'number_device')
     def _compute_consumption(self):
         """
         Compute the consumption of the device, based on the 2 types of consumptions.
