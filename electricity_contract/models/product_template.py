@@ -51,10 +51,11 @@ class ProductTemplate(models.Model):
         for prod in self:
             prod.display_in_general_tab = self.env['ir.config_parameter'].sudo().get_param("electricity_contract.display_in_general_tab")
 
-    @api.depends('electricity_contract_id')
+    @api.depends('electricity_contract_id', 'name')
     def _compute_default_uom(self):
         """
         compute the default uom, based on contract
+        depends on name: name is a required field, uom will always be set at creation of a product
         """
         for prod in self:
             prod.electricity_uom = prod.contract_uom or 'kwh'
