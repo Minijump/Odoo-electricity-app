@@ -109,7 +109,7 @@
                             <div class="o_setting_right_pane">
                                 <label for="use_in_so_line"/>
                                 <div class="text-muted">
-                                    Use the cost with electricity as unti price when creating a new sale order line
+                                    Use the cost with electricity as unit price when creating a new sale order line
                                 </div>
                             </div>
                         </div>
