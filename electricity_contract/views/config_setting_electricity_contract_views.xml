@@ -6,8 +6,8 @@
        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
        <field name="arch" type="xml">
            <!-- Form view of the electricity contract settings -->
-           <xpath expr="//div[hasclass('settings')]" position="inside">
-               <div class="app_settings_block" data-string="electricity_contract" string="Electricity" data-key="electricity_contract">
+           <xpath expr="//form" position="inside">
+               <app string="Electricity" data-string="electricity_contract" name="electricity_contract">
                     <h2>Consumption Calculator</h2>
                     <div class="row mt16 o_settings_container" name="calculator">
                         <div>
@@ -115,10 +115,10 @@
                         </div>
                     </div>
 
-                </div>
+                </app>
            </xpath>
 
-           <xpath expr="//div[@id='show_margins']" position="attributes">
+           <xpath expr="//setting[@id='show_margins']" position="attributes">
                 <!-- uncheck this boolean would unistall all modules, hide it-->
                 <attribute name="invisible">1</attribute>
            </xpath>

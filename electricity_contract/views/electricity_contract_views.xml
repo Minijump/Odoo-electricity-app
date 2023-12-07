@@ -11,8 +11,8 @@
                     <field name="name"/>
                     <field name="price"/>
                     <field name="uom"/>
-                    <field name="currency_id" invisible="1"/>
-                    <field name="company_id" invisible="1"/>
+                    <field name="currency_id" column_invisible="True"/>
+                    <field name="company_id" column_invisible="True"/>
                 </tree>
             </field>
         </record>
@@ -39,8 +39,8 @@
                             <page string="Products" name="products">
                                 <field name="product_ids">
                                     <tree string="Products" create="false" delete="false">
-                                        <field name="company_id" invisible="1"/>
-                                        <field name="currency_id" invisible="1"/>
+                                        <field name="company_id" column_invisible="True"/>
+                                        <field name="currency_id" column_invisible="True"/>
                                         <field name="name"/>
                                         <field name="electricity_consumption"/>
                                         <field name="electricity_uom"/>
@@ -54,8 +54,8 @@
                             <page string="Devices" name="devices">
                                 <field name="device_ids">
                                     <tree string="Devices" create="false" delete="false">
-                                        <field name="company_id" invisible="1"/>
-                                        <field name="currency_id" invisible="1"/>
+                                        <field name="company_id" column_invisible="True"/>
+                                        <field name="currency_id" column_invisible="True"/>
                                         <field name="name"/>
                                         <field name="number_device"/>
                                         <field name="total_consumption"/>
