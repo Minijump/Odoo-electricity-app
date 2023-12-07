@@ -60,7 +60,7 @@ class ProductTemplate(models.Model):
         for prod in self:
             prod.electricity_uom = prod.contract_uom or 'kwh'
     
-    @api.depends('electricity_consumption', 'electricity_uom')  #not working with 'price_elec_contract'???
+    @api.depends('electricity_consumption', 'electricity_uom', 'price_elec_contract')
     def _compute_elec_cost(self):
         """
         Compute the cost of the electricity consumption

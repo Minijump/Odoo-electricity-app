@@ -13,24 +13,24 @@
                         <!-- if no : -its label will be 'consumption'
                                      -computed field 'elec_consumption' will be hidden -->
                         <label for="additional_consumption" 
-                                attrs="{'invisible':[('include_in_product_consumption','=', False)]}"/>
+                                invisible="include_in_product_consumption == False"/>
                         <label for="additional_consumption" 
                                 string="Consumption"
-                                attrs="{'invisible':[('include_in_product_consumption','=', True)]}"/>
+                                invisible="include_in_product_consumption == True"/>
                         <div name="additional_consumption_uom">
                             <field name="additional_consumption" class="oe_inline"/>
-                            <span groups="uom.group_uom">
+                            <span>
                                 <field name="electricity_uom" 
                                        class="oe_inline" 
                                        style="margin-left: 5px;"/>
                             </span>
                         </div>
                         <label for="electricity_consumption" 
-                                attrs="{'invisible':[('include_in_product_consumption','=', False)]}"
+                                invisible="include_in_product_consumption == False"
                                 string="Total Consumption"/>
-                        <div name="consumption_uom" attrs="{'invisible':[('include_in_product_consumption','=', False)]}">
+                        <div name="consumption_uom" invisible="include_in_product_consumption == False">
                             <field name="electricity_consumption" class="oe_inline" />
-                            <span groups="uom.group_uom">
+                            <span>
                                 <field name="readonly_uom" 
                                         class="oe_inline" 
                                         style="margin-left: 5px;"
@@ -43,12 +43,12 @@
                     </group>
                 </xpath>
                 <xpath expr="//page//group[@name='product_infos']" position="after">
-                    <group string="Infos from BOM" attrs="{'invisible':[('bom_count','=', 0)]}" name="bom_infos">
+                    <group string="Infos from BOM" invisible="bom_count == 0" name="bom_infos">
                         <field name="bom_count" invisible="1"/>
                         <label for="electricity_consumption_from_bom" string="Consumption"/>
                         <div name="consumption_bom_uom">
                             <field name="electricity_consumption_from_bom" class="oe_inline"/>
-                            <span groups="uom.group_uom">
+                            <span>
                                 <field name="readonly_uom" 
                                        class="oe_inline" 
                                        style="margin-left: 5px;" 
