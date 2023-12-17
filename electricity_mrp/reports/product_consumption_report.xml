@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Report Template -->
+    <template id="report_product_consumption">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h1>
+                        <span t-field="doc.name"/>
+                    </h1>
+
+                    <table name="bom_table" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th name="products_col">Products</th>
+                                <th name="products_cons">
+                                    <span t-esc="doc.electricity_uom"/>
+                                    <span>/ unit</span>
+                                </th>
+                                <th name="product_qty">Quantity</th>
+                                <th name="product_contract">Contract</th>
+                                <th name="product_contract">Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="products" t-value="doc._get_elec_detail(doc.electricity_uom)"/>
+                            <tr t-foreach="products" t-as="product">
+                                    <td>
+                                        <span t-esc="product['level']"/>
+                                        <t t-if="product['prod']">
+                                            <span t-esc="product['prod'].name"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span t-esc="product['prod_add_cons'].name"/>'s
+                                            <span> additional Consumption</span>
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <span t-esc="product['level']"/>
+                                        <span t-esc="product['cons']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="product['qty']"/>
+                                    </td>
+                                    <td t-if="product['contract']">
+                                        <span t-esc="product['contract'].name" style="border-right: 3px;"/>
+                                        (<span 
+                                            t-esc="product['contract'].price" 
+                                            t-options='{"widget": "monetary", "display_currency": doc.currency_id}'
+                                            style="border-right: 2px;"/>
+                                        <span style="border-right: 2px;">/</span>
+                                        <span t-esc="product['contract'].uom"/>)
+                                    </td>
+                                    <td t-else="">
+                                        <span>No contract</span>
+                                    </td>
+                                    <td>
+                                        <span t-esc="product['level']"/>
+                                        <span 
+                                            t-esc="product['cost']"
+                                            t-options='{"widget": "monetary", "display_currency": doc.currency_id}'
+                                        />
+                                    </td>
+                            </tr>
+                        </tbody>
+                     </table>
+
+                    <table name="product_table" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th name="Consumption_col">Total Consumption</th>
+                                <th name="Cost_col" style="text-align: right;">Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                <span t-esc="doc.electricity_consumption"/>
+                                <span t-esc="doc.electricity_uom" style="margin-left: 3px;"/>
+                                </td>
+                                <td style="text-align: right;">
+                                    <span 
+                                        t-esc="doc.electricity_cost" 
+                                        t-options='{"widget": "monetary", "display_currency": doc.currency_id}'
+                                    />
+                                </td>
+                            </tr>
+                        </tbody>
+                     </table>
+
+                     <div style="text-align: center;">
+                        <img
+                            t-if="doc.bar_graph"
+                            t-att-src="image_data_uri(doc.bar_graph)"
+                            alt="Not found"
+                            style="max-width: 100%; height: auto; margin: 0 auto;"
+                        />
+                    </div>
+                    
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_consumption">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="electricity_mrp.report_product_consumption"/>
+            </t>
+        </t>
+    </template>
+
+    <!-- Action for the Report -->
+    <record id="action_product_consumption_report" model="ir.actions.report">
+        <field name="name">Product Consumption Report</field>
+        <field name="model">product.template</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">electricity_mrp.report_consumption</field>
+        <field name="report_file">electricity_mrp.report_consumption</field>
+        <field name="binding_model_id" ref="model_product_template"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

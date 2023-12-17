@@ -2,7 +2,7 @@
 
 {
     'name': 'FREE MRP extension: Electricity Management',
-    'version': '16.0.2.0.0',
+    'version': '16.0.2.0.1',
     'license': 'OPL-1',
     'author': "Minijump",
     'application': True,
@@ -15,7 +15,8 @@
         'mrp'
     ],
     'data': [
-        'views/product_template_views.xml'
+        'views/product_template_views.xml',
+        'reports/product_consumption_report.xml',
     ],
     'support': 'ecuyer.duchevalier@gmail.com'
 }
