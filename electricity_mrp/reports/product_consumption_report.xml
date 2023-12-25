@@ -3,12 +3,25 @@
     <!-- Report Template -->
     <template id="report_product_consumption">
         <t t-call="web.html_container">
-            <t t-call="web.external_layout">
+            <t t-call="web.internal_layout">
                 <div class="page">
                     <h1>
-                        <span t-field="doc.name"/>
+                        <span t-field="doc.name"/>:
+                        <span>consumption report</span>
                     </h1>
 
+                    <t t-set="products" t-value="doc._get_elec_detail(doc.electricity_uom)"/>
+                    <t t-set="multiple_contracts" t-value="len(set(p['contract'] for p in products)) > 1"/>
+                    <div t-if="not multiple_contracts" style="margin-bottom: 5px;">
+                        <span>Electricity contract:</span>
+                        <span t-esc="doc.electricity_contract_id.name" style="border-right: 3px;"/>
+                        (<span 
+                            t-esc="doc.electricity_contract_id.price" 
+                            t-options='{"widget": "monetary", "display_currency": doc.currency_id}'
+                            style="border-right: 2px;"/>
+                        <span style="border-right: 2px;">/</span>
+                        <span t-esc="doc.electricity_contract_id.uom"/>)
+                    </div>
                     <table name="bom_table" class="table table-bordered">
                         <thead>
                             <tr>
@@ -18,12 +31,11 @@
                                     <span>/ unit</span>
                                 </th>
                                 <th name="product_qty">Quantity</th>
-                                <th name="product_contract">Contract</th>
+                                <th name="product_contract" t-if="multiple_contracts">Contract</th>
                                 <th name="product_contract">Cost</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <t t-set="products" t-value="doc._get_elec_detail(doc.electricity_uom)"/>
                             <tr t-foreach="products" t-as="product">
                                     <td>
                                         <span t-esc="product['level']"/>
@@ -42,18 +54,20 @@
                                     <td>
                                         <span t-esc="product['qty']"/>
                                     </td>
-                                    <td t-if="product['contract']">
-                                        <span t-esc="product['contract'].name" style="border-right: 3px;"/>
-                                        (<span 
-                                            t-esc="product['contract'].price" 
-                                            t-options='{"widget": "monetary", "display_currency": doc.currency_id}'
-                                            style="border-right: 2px;"/>
-                                        <span style="border-right: 2px;">/</span>
-                                        <span t-esc="product['contract'].uom"/>)
-                                    </td>
-                                    <td t-else="">
-                                        <span>No contract</span>
-                                    </td>
+                                    <t t-if="multiple_contracts">
+                                        <td t-if="product['contract']">
+                                            <span t-esc="product['contract'].name" style="border-right: 3px;"/>
+                                            (<span 
+                                                t-esc="product['contract'].price" 
+                                                t-options='{"widget": "monetary", "display_currency": doc.currency_id}'
+                                                style="border-right: 2px;"/>
+                                            <span style="border-right: 2px;">/</span>
+                                            <span t-esc="product['contract'].uom"/>)
+                                        </td>
+                                        <td t-else="">
+                                            <span>No contract</span>
+                                        </td>
+                                    </t>
                                     <td>
                                         <span t-esc="product['level']"/>
                                         <span 
