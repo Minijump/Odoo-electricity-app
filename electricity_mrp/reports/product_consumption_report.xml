@@ -4,7 +4,7 @@
     <template id="report_product_consumption">
         <t t-call="web.html_container">
             <t t-call="web.internal_layout">
-                <div class="page">
+                <div class="page" t-if="doc.include_in_product_consumption">
                     <h1>
                         <span t-field="doc.name"/>:
                         <span>consumption report</span>
@@ -102,15 +102,31 @@
                         </tbody>
                      </table>
 
-                     <div style="text-align: center;">
+                    <div style="text-align: center;">
                         <img
                             t-if="doc.bar_graph"
                             t-att-src="image_data_uri(doc.bar_graph)"
                             alt="Not found"
                             style="max-width: 100%; height: auto; margin: 0 auto;"
                         />
-                    </div>
+                    </div> 
                     
+                </div>
+
+                <!-- if not computed from bom -->
+                <div class="page" t-else="">
+                    <h1>
+                        <span t-field="doc.name"/>:
+                        <span>consumption report</span>
+                    </h1>
+                    <span>
+                        The product's consumption is not computed from its bom. Add a bill of material and check
+                        'include into the product's consumption' to include the consumption of the bom into the product's one.
+                    </span>
+                    <br/>
+                    <span>This product has an electric consumption of</span>
+                    <span t-field="doc.electricity_consumption"/>
+                    <span t-field="doc.electricity_uom" style="margin-left: 5px;"/>
                 </div>
             </t>
         </t>
