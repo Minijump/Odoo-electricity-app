@@ -2,17 +2,12 @@
 from odoo.fields import Command
 import odoo.tests
 from odoo.tests import tagged
+from odoo.addons.electricity_contract.tests.test_electricity_contract import ElectricityContractTest
 
 
+# This test should only be executed after all modules have been installed.
 @tagged('-at_install', 'post_install')
-class ElectricityContractTest(odoo.tests.TransactionCase):
-
-    @classmethod
-    def setUp(self):
-        """
-        pass
-        """
-        pass
+class ElectricityContractTest(ElectricityContractTest):
         
     def test_add_consumption_to_product(self):
         """
@@ -32,7 +27,7 @@ class ElectricityContractTest(odoo.tests.TransactionCase):
             'electricity_uom' : 'wh'
         })
         product.electricity_contract_id = contract.id
-        product.electricity_consumption = 100.0  
+        product.additional_consumption = 100.0  
 
         # Check if electricity cost is correct
         self.assertEqual(product.electricity_cost, 10.0, 
@@ -61,7 +56,7 @@ class ElectricityContractTest(odoo.tests.TransactionCase):
             'electricity_uom' : 'wh'
         })
         product.electricity_contract_id = contract.id
-        product.electricity_consumption = 1000.0
+        product.additional_consumption = 1000.0
 
         #change uom
         product.electricity_uom = 'wh'
@@ -86,7 +81,7 @@ class ElectricityContractTest(odoo.tests.TransactionCase):
             'electricity_uom' : 'wh'
         })
         product.electricity_contract_id = contract.id
-        product.electricity_consumption = 1000.0
+        product.additional_consumption = 1000.0
 
         #change price
         contract.price = 1
@@ -115,7 +110,7 @@ class ElectricityContractTest(odoo.tests.TransactionCase):
             'electricity_uom' : 'wh'
         })
         product.electricity_contract_id = contract.id
-        product.electricity_consumption = 1000.0
+        product.additional_consumption = 1000.0
         device = self.env['device'].create({
             'name': 'device 1',
             'number_device': 10,
@@ -148,7 +143,7 @@ class ElectricityContractTest(odoo.tests.TransactionCase):
                          "Total consumption'cost of device not well computed")
         
         #test atfter changes in the product's consumption
-        product.electricity_consumption = 2000.0
+        product.additional_consumption = 2000.0
         self.assertEqual(device.total_consumption, 200010, 
                          "Total consumption of device not well computed after product's consumption changes")
         self.assertEqual(device.total_cost, 20001, 
@@ -171,7 +166,7 @@ class ElectricityContractTest(odoo.tests.TransactionCase):
     def test_elec_on_so_line(self):
         """
         setup: -add a contract and a consumption to a product
-               -create a so
+            -create a so
         action: -check bool in settings
         tests: -check that the price include electricity after boolean is checked
         """
@@ -186,7 +181,7 @@ class ElectricityContractTest(odoo.tests.TransactionCase):
             'electricity_uom' : 'wh'
         })
         product.electricity_contract_id = contract.id
-        product.electricity_consumption = 1000.0
+        product.additional_consumption = 1000.0
 
         uom = self.env['uom.uom'].create({
                 'name': "Hours",
@@ -212,11 +207,17 @@ class ElectricityContractTest(odoo.tests.TransactionCase):
         self.env['ir.config_parameter'].sudo().set_param("electricity_contract.use_in_so_line", True)
         #create so line
         so.order_line=[
-             Command.create({
+            Command.create({
                     'product_id': product_product.id,
                     'product_uom_qty': 5.0,
                 }),
         ]
         #check price
         self.assertEqual(so.order_line[0].purchase_price, 110, 
-                            "Purchase price on so line is not correct after 'add elec' boolean is checked")     
+                            "Purchase price on so line is not correct after 'add elec' boolean is checked") 
+
+    ElectricityContractTest.test_add_consumption_to_product = test_add_consumption_to_product
+    ElectricityContractTest.test_change_product_uom = test_change_product_uom
+    ElectricityContractTest.test_change_on_contract = test_change_on_contract
+    ElectricityContractTest.test_device_consumptions = test_device_consumptions
+    ElectricityContractTest.test_elec_on_so_line = test_elec_on_so_line
