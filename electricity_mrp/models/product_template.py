@@ -101,7 +101,7 @@ class ProductTemplate(models.Model):
                 add_cons_dic['prod_add_cons'] = product_dic['prod']
                 uom_conv = line.product_tmpl_id._convert_units(line.product_tmpl_id.electricity_uom , target_uom)
                 add_cons_dic['cons'] = line.product_tmpl_id.additional_consumption * uom_conv
-                add_cons_dic['qty'] = 1
+                add_cons_dic['qty'] = 1.0
                 add_cons_dic['contract'] = line.product_tmpl_id.electricity_contract_id
                 add_cons_dic['cost'] = line.product_tmpl_id.additional_consumption * line.product_tmpl_id.price_elec_contract #qty always 1
                 add_cons_dic['add_in_graph'] = True
@@ -125,7 +125,7 @@ class ProductTemplate(models.Model):
             this_add_cons_dic['prod'] = False 
             this_add_cons_dic['prod_add_cons'] = prod
             this_add_cons_dic['cons'] = prod.additional_consumption 
-            this_add_cons_dic['qty'] = 1
+            this_add_cons_dic['qty'] = 1.0
             this_add_cons_dic['contract'] = prod.electricity_contract_id
             this_add_cons_dic['cost'] = prod.additional_consumption * prod.price_elec_contract
             this_add_cons_dic['add_in_graph'] = True
@@ -133,7 +133,7 @@ class ProductTemplate(models.Model):
             
             prod._compute_graph(bom_products)
             return bom_products
-        
+                
     def _compute_graph(self, bom_products):
         """
         Generate the graphs for the report
