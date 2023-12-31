@@ -19,7 +19,7 @@
                                 attrs="{'invisible':[('include_in_product_consumption','=', True)]}"/>
                         <div name="additional_consumption_uom">
                             <field name="additional_consumption" class="oe_inline"/>
-                            <span groups="uom.group_uom">
+                            <span>
                                 <field name="electricity_uom" 
                                        class="oe_inline" 
                                        style="margin-left: 5px;"/>
@@ -30,7 +30,7 @@
                                 string="Total Consumption"/>
                         <div name="consumption_uom" attrs="{'invisible':[('include_in_product_consumption','=', False)]}">
                             <field name="electricity_consumption" class="oe_inline" />
-                            <span groups="uom.group_uom">
+                            <span>
                                 <field name="readonly_uom" 
                                         class="oe_inline" 
                                         style="margin-left: 5px;"
@@ -48,7 +48,7 @@
                         <label for="electricity_consumption_from_bom" string="Consumption"/>
                         <div name="consumption_bom_uom">
                             <field name="electricity_consumption_from_bom" class="oe_inline"/>
-                            <span groups="uom.group_uom">
+                            <span>
                                 <field name="readonly_uom" 
                                        class="oe_inline" 
                                        style="margin-left: 5px;" 

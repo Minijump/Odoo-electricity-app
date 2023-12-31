@@ -39,14 +39,14 @@
                                 <label for="total_consumption"/>
                                 <div name="total_consumption_uom">
                                     <field name="total_consumption" class="oe_inline"/>
-                                    <span groups="uom.group_uom" style="margin-left: 5px;">
+                                    <span style="margin-left: 5px;">
                                         <field name="readonly_uom" class="oe_inline"/>
                                     </span>
                                 </div> 
                                 <label for="contract_price" string="Contract price"/>
                                 <div name="contract_infos">
                                     <field name="contract_price" class="oe_inline" widget='monetary'/>
-                                    <span groups="uom.group_uom">
+                                    <span>
                                         <span style="margin-right: 5px; margin-left: 5px;">per</span>
                                         <field name="contract_uom" class="oe_inline"/>
                                     </span>
