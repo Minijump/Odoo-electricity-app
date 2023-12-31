@@ -25,7 +25,7 @@
                                 <label for="price_elec_contract"/>
                                 <div name="price_uom_contract">
                                     <field name="price_elec_contract" class="oe_inline" widget='monetary'/>
-                                    <span groups="uom.group_uom">
+                                    <span>
                                         <span style="margin-right: 5px; margin-left: 5px;">per</span>
                                         <field name="contract_uom" class="oe_inline"/>
                                     </span>
@@ -36,7 +36,7 @@
                                 <label for="electricity_consumption" string="Consumption"/>
                                 <div name="consumption_uom">
                                     <field name="electricity_consumption" class="oe_inline" />
-                                    <span groups="uom.group_uom">
+                                    <span>
                                         <field name="electricity_uom" 
                                                class="oe_inline" 
                                                style="margin-left: 5px;"/>

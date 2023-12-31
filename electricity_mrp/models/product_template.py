@@ -14,7 +14,7 @@ class ProductTemplate(models.Model):
 
     #data from bom
     electricity_consumption_from_bom = fields.Float(compute='_compute_electricity_from_bom', store=True)
-    electricity_cost_from_bom = fields.Monetary(compute='_compute_electricity_from_bom', compute_sudo=True)
+    electricity_cost_from_bom = fields.Monetary(compute='_compute_electricity_from_bom', store=True)
     include_in_product_consumption = fields.Boolean()
 
     #data for product
@@ -25,7 +25,8 @@ class ProductTemplate(models.Model):
     #data for report
     bar_graph = fields.Binary()
 
-    @api.depends('bom_ids', 'electricity_uom', 'bom_ids.bom_line_ids')
+    @api.depends('bom_ids', 'bom_ids.bom_line_ids', 'bom_ids.bom_line_ids.product_id', 
+                 'bom_ids.bom_line_ids.product_id.electricity_consumption', 'electricity_uom')
     def _compute_electricity_from_bom(self):
         """
         Compute the electricity consumption from bom
@@ -69,7 +70,7 @@ class ProductTemplate(models.Model):
                               prod.price_elec_contract)
             prod.electricity_cost = additional_cost + bom_cost
 
-    def _get_bom_components_rec(self, target_uom, bom_products=[], level=''):
+    def _get_bom_components_rec(self, target_uom, bom_products=[], level='', parent_qty=1):
         """
         Return a list with the products' infos present in the bom
         Used in the report
@@ -85,13 +86,14 @@ class ProductTemplate(models.Model):
             product_dic['contract'] = line.product_tmpl_id.electricity_contract_id
             product_dic['cost'] = line.product_tmpl_id.electricity_cost * product_dic['qty']
             product_dic['add_in_graph'] = True
+            product_dic['total_qty'] = parent_qty * product_dic['qty']
             bom_products.append(product_dic)
 
             if product_dic['prod'].include_in_product_consumption:
                 bom_products[-1]['add_in_graph'] = False 
 
                 #add the consumptions from bom
-                product_dic['prod']._get_bom_components_rec(target_uom, bom_products, level.replace('|', '-') + '|')
+                product_dic['prod']._get_bom_components_rec(target_uom, bom_products, level.replace('|', '-') + '|', product_dic['total_qty'])
 
                 #additional consumptions of the product
                 uom_conv = line.product_tmpl_id._convert_units(line.product_tmpl_id.electricity_uom , target_uom)
@@ -105,6 +107,7 @@ class ProductTemplate(models.Model):
                 add_cons_dic['contract'] = line.product_tmpl_id.electricity_contract_id
                 add_cons_dic['cost'] = line.product_tmpl_id.additional_consumption * line.product_tmpl_id.price_elec_contract #qty always 1
                 add_cons_dic['add_in_graph'] = True
+                add_cons_dic['total_qty'] = parent_qty 
                 bom_products.append(add_cons_dic)
             
     def _get_elec_detail(self, target_uom):
@@ -129,6 +132,7 @@ class ProductTemplate(models.Model):
             this_add_cons_dic['contract'] = prod.electricity_contract_id
             this_add_cons_dic['cost'] = prod.additional_consumption * prod.price_elec_contract
             this_add_cons_dic['add_in_graph'] = True
+            this_add_cons_dic['total_qty'] = 1
             bom_products.append(this_add_cons_dic)
             
             prod._compute_graph(bom_products)
@@ -142,9 +146,10 @@ class ProductTemplate(models.Model):
         data = []
         to_display = [item for item in bom_products if item['cost'] > 0 and item['add_in_graph'] == True]
         for item in to_display:
+            total_cost = item['cost'] * (item['total_qty']/item['qty']) #cost for unit * qty in bom * qty in parents bom
             label = (item['prod'].name if item['prod'] 
                      else item['prod_add_cons'].name + "'s add. cons.")
-            data.append({'label': label, 'cost': item['cost']})
+            data.append({'label': label, 'cost': total_cost})
 
         # Convert the data list to a DataFrame
         df = pd.DataFrame(data)
