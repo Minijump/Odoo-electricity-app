@@ -7,27 +7,36 @@ from odoo.addons.electricity_contract.tests.test_electricity_contract import Ele
 
 # This test should only be executed after all modules have been installed.
 @tagged('-at_install', 'post_install')
-class ElectricityContractTest(ElectricityContractTest):
-        
-    def test_add_consumption_to_product(self):
+class ElectricityContractMrpTest(ElectricityContractTest):
+
+    @classmethod
+    def setUpClass(cls):
         """
-        setup: -add a contract and a consumption to a product
-        tests: -check if electricity cost is correct
-               -check if cost of product with electricity is correct
-               -check if product was added into contract's product
+        Set a product a contract, and an electricity consumption
         """
-        contract = self.env['electricity.contract'].create({
+        cls.contract = cls.env['electricity.contract'].create({
             'name': 'Test Contract',
             'price': 0.1,  
             'uom': 'kwh',  
         })
-        product = self.env['product.template'].create({
+        cls.product = cls.env['product.template'].create({
             'name': 'product test',
             'standard_price': 10,
             'electricity_uom' : 'wh'
         })
-        product.electricity_contract_id = contract.id
-        product.additional_consumption = 100.0  
+        cls.product.electricity_contract_id = cls.contract.id
+        cls.product.electricity_consumption = 1000.0
+        
+    def test_add_consumption_to_product(self):
+        """
+        setup: -change electricity consumption
+        tests: -check if electricity cost is correct
+               -check if cost of product with electricity is correct
+               -check if product was added into contract's product
+        """
+        contract = self.contract
+        product = self.product
+        product.electricity_consumption = 100.0  
 
         # Check if electricity cost is correct
         self.assertEqual(product.electricity_cost, 10.0, 
@@ -45,18 +54,7 @@ class ElectricityContractTest(ElectricityContractTest):
         action: -change uom
         tests: -check if electricity cost is correct
         """
-        contract = self.env['electricity.contract'].create({
-            'name': 'Test Contract 2',
-            'price': 0.1,  
-            'uom': 'kwh',  
-        })
-        product = self.env['product.template'].create({
-            'name': 'product test 2',
-            'standard_price': 10,
-            'electricity_uom' : 'wh'
-        })
-        product.electricity_contract_id = contract.id
-        product.additional_consumption = 1000.0
+        product = self.product
 
         #change uom
         product.electricity_uom = 'wh'
@@ -66,22 +64,11 @@ class ElectricityContractTest(ElectricityContractTest):
         
     def test_change_on_contract(self):
         """
-        setup: -add a contract and a consumption to a product
         action: -change price on contract
         tests: -check if electricity cost is correct
         """
-        contract = self.env['electricity.contract'].create({
-            'name': 'Test Contract 3',
-            'price': 0.1,  
-            'uom': 'kwh',  
-        })
-        product = self.env['product.template'].create({
-            'name': 'product test 3',
-            'standard_price': 10,
-            'electricity_uom' : 'wh'
-        })
-        product.electricity_contract_id = contract.id
-        product.additional_consumption = 1000.0
+        contract = self.contract
+        product = self.product
 
         #change price
         contract.price = 1
@@ -91,23 +78,11 @@ class ElectricityContractTest(ElectricityContractTest):
 
     def test_elec_on_so_line(self):
         """
-        setup: -add a contract and a consumption to a product
-            -create a so
+        setup: -create a so
         action: -check bool in settings
         tests: -check that the price include electricity after boolean is checked
         """
-        contract = self.env['electricity.contract'].create({
-            'name': 'Test Contract 5',
-            'price': 0.1,  
-            'uom': 'kwh',  
-        })
-        product = self.env['product.template'].create({
-            'name': 'product test 6',
-            'standard_price': 10,
-            'electricity_uom' : 'wh'
-        })
-        product.electricity_contract_id = contract.id
-        product.additional_consumption = 1000.0
+        product = self.product
 
         uom = self.env['uom.uom'].create({
                 'name': "Hours",
@@ -142,7 +117,7 @@ class ElectricityContractTest(ElectricityContractTest):
         self.assertEqual(so.order_line[0].purchase_price, 110, 
                             "Purchase price on so line is not correct after 'add elec' boolean is checked") 
 
-    ElectricityContractTest.test_add_consumption_to_product = test_add_consumption_to_product
-    ElectricityContractTest.test_change_product_uom = test_change_product_uom
-    ElectricityContractTest.test_change_on_contract = test_change_on_contract
-    ElectricityContractTest.test_elec_on_so_line = test_elec_on_so_line
+ElectricityContractTest.test_add_consumption_to_product = ElectricityContractMrpTest.test_add_consumption_to_product
+ElectricityContractTest.test_change_product_uom = ElectricityContractMrpTest.test_change_product_uom
+ElectricityContractTest.test_change_on_contract = ElectricityContractMrpTest.test_change_on_contract
+ElectricityContractTest.test_elec_on_so_line = ElectricityContractMrpTest.test_elec_on_so_line

@@ -4,7 +4,12 @@ from odoo.tests import tagged
 
 @tagged('-at_install', 'post_install')
 class ElectricityMrpTest(odoo.tests.TransactionCase):
-
+    @classmethod
+    def setUpClass(cls):
+        """
+        Pass, only one test here
+        """
+        pass
 
     def test_mrp_bom_computation(self):
         """

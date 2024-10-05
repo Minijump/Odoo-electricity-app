@@ -76,7 +76,7 @@
         </record>
 
         <!-- Menu item for the electricity.contract model -->
-        <menuitem id="menu_electricity_contract_root" name="Electricity Contracts"/>
+        <menuitem id="menu_electricity_contract_root" name="Electricity Contracts" web_icon="static/icon.png"/>
         <menuitem 
             id="menu_electricity_contract_submenu" 
             name="Electricity Contracts"

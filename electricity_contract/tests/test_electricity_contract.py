@@ -8,30 +8,32 @@ from odoo.tests import tagged
 class ElectricityContractTest(odoo.tests.TransactionCase):
 
     @classmethod
-    def setUp(self):
+    def setUpClass(cls):
         """
-        pass
+        Set a product a contract, and an electricity consumprtion
         """
-        pass
-        
-    def test_add_consumption_to_product(self):
-        """
-        setup: -add a contract and a consumption to a product
-        tests: -check if electricity cost is correct
-               -check if cost of product with electricity is correct
-               -check if product was added into contract's product
-        """
-        contract = self.env['electricity.contract'].create({
+        cls.contract = cls.env['electricity.contract'].create({
             'name': 'Test Contract',
             'price': 0.1,  
             'uom': 'kwh',  
         })
-        product = self.env['product.template'].create({
+        cls.product = cls.env['product.template'].create({
             'name': 'product test',
             'standard_price': 10,
             'electricity_uom' : 'wh'
         })
-        product.electricity_contract_id = contract.id
+        cls.product.electricity_contract_id = cls.contract.id
+        cls.product.electricity_consumption = 1000.0  
+        
+    def test_add_consumption_to_product(self):
+        """
+        setup: -change electricity consumption
+        tests: -check if electricity cost is correct
+               -check if cost of product with electricity is correct
+               -check if product was added into contract's product
+        """
+        contract = self.contract
+        product = self.product
         product.electricity_consumption = 100.0  
 
         # Check if electricity cost is correct
@@ -46,22 +48,10 @@ class ElectricityContractTest(odoo.tests.TransactionCase):
         
     def test_change_product_uom(self):
         """
-        setup: -add a contract and a consumption to a product
         action: -change uom
         tests: -check if electricity cost is correct
         """
-        contract = self.env['electricity.contract'].create({
-            'name': 'Test Contract 2',
-            'price': 0.1,  
-            'uom': 'kwh',  
-        })
-        product = self.env['product.template'].create({
-            'name': 'product test 2',
-            'standard_price': 10,
-            'electricity_uom' : 'wh'
-        })
-        product.electricity_contract_id = contract.id
-        product.electricity_consumption = 1000.0
+        product = self.product
 
         #change uom
         product.electricity_uom = 'wh'
@@ -71,22 +61,11 @@ class ElectricityContractTest(odoo.tests.TransactionCase):
         
     def test_change_on_contract(self):
         """
-        setup: -add a contract and a consumption to a product
         action: -change price on contract
         tests: -check if electricity cost is correct
         """
-        contract = self.env['electricity.contract'].create({
-            'name': 'Test Contract 3',
-            'price': 0.1,  
-            'uom': 'kwh',  
-        })
-        product = self.env['product.template'].create({
-            'name': 'product test 3',
-            'standard_price': 10,
-            'electricity_uom' : 'wh'
-        })
-        product.electricity_contract_id = contract.id
-        product.electricity_consumption = 1000.0
+        contract = self.contract
+        product = self.product
 
         #change price
         contract.price = 1
@@ -96,23 +75,11 @@ class ElectricityContractTest(odoo.tests.TransactionCase):
         
     def test_elec_on_so_line(self):
         """
-        setup: -add a contract and a consumption to a product
-               -create a so
+        setup: - create an so
         action: -check bool in settings
         tests: -check that the price include electricity after boolean is checked
         """
-        contract = self.env['electricity.contract'].create({
-            'name': 'Test Contract 5',
-            'price': 0.1,  
-            'uom': 'kwh',  
-        })
-        product = self.env['product.template'].create({
-            'name': 'product test 6',
-            'standard_price': 10,
-            'electricity_uom' : 'wh'
-        })
-        product.electricity_contract_id = contract.id
-        product.electricity_consumption = 1000.0
+        product = self.product
 
         uom = self.env['uom.uom'].create({
                 'name': "Hours",
