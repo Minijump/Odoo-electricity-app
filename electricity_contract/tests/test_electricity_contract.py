@@ -12,6 +12,7 @@ class ElectricityContractTest(odoo.tests.TransactionCase):
         """
         Set a product a contract, and an electricity consumprtion
         """
+        super().setUpClass()
         cls.contract = cls.env['electricity.contract'].create({
             'name': 'Test Contract',
             'price': 0.1,  
@@ -35,7 +36,6 @@ class ElectricityContractTest(odoo.tests.TransactionCase):
         contract = self.contract
         product = self.product
         product.electricity_consumption = 100.0  
-
         # Check if electricity cost is correct
         self.assertEqual(product.electricity_cost, 10.0, 
                          "Electricity cost is not correct while adding a contract/consumption") 

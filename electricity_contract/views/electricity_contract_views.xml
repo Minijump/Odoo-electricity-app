@@ -2,18 +2,18 @@
 <odoo>
     <data>
 
-        <!-- View for the electricity.contract tree -->
-        <record id="view_electricity_contract_tree" model="ir.ui.view">
-            <field name="name">electricity.contract.tree</field>
+        <!-- View for the electricity.contract list -->
+        <record id="view_electricity_contract_list" model="ir.ui.view">
+            <field name="name">electricity.contract.list</field>
             <field name="model">electricity.contract</field>
             <field name="arch" type="xml">
-                <tree string="Electricity Contracts">
+                <list string="Electricity Contracts">
                     <field name="name"/>
                     <field name="price"/>
                     <field name="uom"/>
                     <field name="currency_id" column_invisible="True"/>
                     <field name="company_id" column_invisible="True"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -38,7 +38,7 @@
                         <notebook>
                             <page string="Products" name="products">
                                 <field name="product_ids">
-                                    <tree string="Products" create="false" delete="false">
+                                    <list string="Products" create="false" delete="false">
                                         <field name="company_id" column_invisible="True"/>
                                         <field name="currency_id" column_invisible="True"/>
                                         <field name="name"/>
@@ -48,7 +48,7 @@
                                         <field name="electricity_cost" widget="monetary"/>
                                         <field name="cost_with_elec" optional="1" widget="monetary"/>
                                         <field name="list_price" optional="1" widget="monetary"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                         </notebook>
@@ -57,12 +57,12 @@
             </field>
         </record>
 
-        <!-- Action for opening the tree view -->
-        <record id="action_electricity_contract_tree" model="ir.actions.act_window">
+        <!-- Action for opening the list view -->
+        <record id="action_electricity_contract_list" model="ir.actions.act_window">
             <field name="name">Electricity Contracts</field>
             <field name="res_model">electricity.contract</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_electricity_contract_tree"/>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="view_electricity_contract_list"/>
             <field name="target">current</field>
         </record>
 
@@ -87,7 +87,7 @@
             id="menu_electricity_contract" 
             name="Contracts" 
             parent="menu_electricity_contract_submenu" 
-            action="action_electricity_contract_tree"
+            action="action_electricity_contract_list"
         />
 
 

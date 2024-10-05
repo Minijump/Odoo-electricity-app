@@ -9,6 +9,7 @@ class ElectricityMrpTest(odoo.tests.TransactionCase):
         """
         Pass, only one test here
         """
+        super().setUpClass()
         pass
 
     def test_mrp_bom_computation(self):
