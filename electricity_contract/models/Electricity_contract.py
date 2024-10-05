@@ -3,6 +3,7 @@ from odoo import fields,models
 class ElectricityContract(models.Model):
     _name = "electricity.contract"
     _description = "Represent electricity contracts"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(required=True)
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
