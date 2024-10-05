@@ -17,7 +17,6 @@
     'auto_install': True,
     'data': [
         'views/product_template_views.xml',
-        'reports/product_consumption_report.xml',
     ],
     'support': 'ecuyer.duchevalier@gmail.com'
 }
